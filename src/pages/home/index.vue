@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  defineProps<{ msg: string }>();
+  import { Header } from "@/widgets/header";
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+  <Header />
 </template>
 
 <style scoped></style>
