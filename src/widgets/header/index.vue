@@ -40,6 +40,7 @@
       <img
         class="header__background"
         :src="ImageHeaderMain"
+        alt="header"
       />
     </picture>
   </header>
