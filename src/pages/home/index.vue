@@ -1,16 +1,31 @@
 <script setup lang="ts">
   import { Header } from "@/widgets/header";
-  import { ScrollButtonToTop } from "@/features/scroll-button-to-top";
-</script>
+  import { About } from "@/widgets/about";
 
+  import { ScrollButtonToTop } from "@/features/scroll-button-to-top";
+
+  /*
+
+    TODO:
+
+    Widgets:
+    1. About []
+    2. Cntact []
+    3. Review []
+
+    Features:
+    1. Modal []
+
+    FIXES:
+
+    1. Carousel -> returns to the beginning rather than continuing to switch slides
+
+    */
+</script>
 <template>
   <Header />
-  <div
-    id="about"
-    class="block"
-  >
-    <h1>About</h1>
-  </div>
+  <About />
+
   <div
     id="contact"
     class="block"
@@ -34,7 +49,6 @@
 
 <style scoped>
   .block {
-    height: 500px;
+    height: 800px;
   }
 </style>
-@/features/scroll-button-to-top
