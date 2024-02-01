@@ -4,74 +4,34 @@
   import "vue3-carousel/dist/carousel.css";
   import { Carousel, Slide, Navigation } from "vue3-carousel";
 
-  import Slide1 from "@/assets/image/slide-1.png";
-  import Slide2 from "@/assets/image/slide-2.png";
-  import Slide3 from "@/assets/image/slide-3.png";
-  import Slide4 from "@/assets/image/slide-4.png";
-  import Slide5 from "@/assets/image/slide-5.jpg";
-  import Slide6 from "@/assets/image/slide-6.jpeg";
-  import Slide7 from "@/assets/image/slide-7.jpg";
+  const emit = defineEmits(["modal-open"]);
 
-  interface ISlide {
-    id: number;
-    slide: string;
-  }
+  defineProps<{
+    slides: {
+      id: number;
+      slide: string;
+    }[];
+  }>();
 
   const currentSlideId = ref<number>(0);
-
-  const slides = ref<ISlide[]>([
-    {
-      id: 1,
-      slide: Slide6,
-    },
-    {
-      id: 2,
-      slide: Slide1,
-    },
-    {
-      id: 3,
-      slide: Slide2,
-    },
-    {
-      id: 4,
-      slide: Slide3,
-    },
-    {
-      id: 5,
-      slide: Slide4,
-    },
-    {
-      id: 6,
-      slide: Slide5,
-    },
-    {
-      id: 7,
-      slide: Slide7,
-    },
-  ]);
+  const slideTo = (value: number) => {
+    if (value !== currentSlideId.value) {
+      currentSlideId.value = value;
+    }
+  };
 
   const breakpoints = {
     400: {
       itemsToShow: 1,
-      wrapAround: true,
     },
 
     700: {
       itemsToShow: 2,
-      wrapAround: true,
     },
 
     1024: {
       itemsToShow: 3.95,
-      wrapAround: true,
     },
-  };
-
-  const slideTod = (value: number) => {
-    if (value !== currentSlideId.value) {
-      console.log("slide", value, "and", currentSlideId.value);
-      currentSlideId.value = value;
-    }
   };
 </script>
 
@@ -81,6 +41,7 @@
     :transition="500"
     v-model="currentSlideId"
     :breakpoints="breakpoints"
+    :wrapAround="true"
   >
     <slide
       v-for="slide in slides"
@@ -88,12 +49,14 @@
     >
       <div
         class="carousel__item"
-        @click="slideTod(slide.id - 1)"
+        @click="slideTo(slide.id - 1)"
       >
         <img
           class="item__image"
           :src="slide.slide"
           alt="about"
+          @click="emit('modal-open', slide.id)"
+          loading="lazy"
         />
       </div>
     </slide>
